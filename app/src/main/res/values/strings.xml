@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">VistaManager</string>
+    <string name="username_hint">请输入账号</string>
+    <string name="password_hint">请输入密码</string>
+    <string name="nickname_hint">请输入昵称</string>
+    <string name="register">前往注册</string>
+    <string name="login">登录</string>
+    <string name="confirm_register">确定注册</string>
+    <string name="add_proj">添加项目</string>
+    <string name="proj_list">项目列表</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="proj_add">添加项目</string>
+    <string name="vista_list">全景列表</string>
+    <string name="vista_update">全景题目、描述更新</string>
+    <string name="delete">删除</string>
+    <string name="vista_type_content">请输入全景描述</string>
+    <string name="vista_type_url">请输入全景URL</string>
+    <string name="vista_type_lat">请输入全景纬度</string>
+    <string name="vista_type_lon">请输入全景经度</string>
+    <string name="serach">预览</string>
+
+</resources>

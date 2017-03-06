@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_vista"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wqz.vistamanager.AddVistaActivity">
+
+    <com.wqz.view.TitleBar
+        android:id="@+id/add_vista_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/et_add_vista_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_vista_title_bar"
+        android:hint="@string/vista_type_content"/>
+
+    <Button
+        android:id="@+id/btn_add_vista_serach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_add_vista_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/serach"
+        />
+
+    <EditText
+        android:id="@+id/et_add_vista_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_add_vista_serach"
+        android:layout_toLeftOf="@+id/btn_add_vista_serach"
+        android:layout_below="@+id/et_add_vista_content"
+        android:hint="@string/vista_type_url"/>
+
+    <EditText
+        android:id="@+id/et_add_vista_lon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_add_vista_url"
+        android:hint="@string/vista_type_lon"/>
+
+    <EditText
+        android:id="@+id/et_add_vista_lat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_add_vista_lon"
+        android:hint="@string/vista_type_lat"/>
+
+    <WebView
+        android:id="@+id/wv_pano"
+        android:layout_below="@+id/et_add_vista_lat"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>

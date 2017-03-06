@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_vista"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wqz.vistamanager.VistaActivity">
+
+    <com.wqz.view.TitleBar
+        android:id="@+id/vista_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tv_vista_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vista_title_bar"
+        android:text="全景ID号为："
+        android:layout_margin="5dp"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/et_vista_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_vista_id"
+        android:hint="@string/vista_type_content"/>
+
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/et_vista_url"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/btn_vista_serach"-->
+        <!--android:layout_toLeftOf="@+id/btn_vista_serach"-->
+        <!--android:layout_below="@+id/et_vista_content"-->
+        <!--android:hint="@string/vista_type_url"/>-->
+
+    <EditText
+        android:id="@+id/et_vista_lon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_vista_content"
+        android:layout_toLeftOf="@+id/btn_vista_serach"
+        android:hint="@string/vista_type_lon"/>
+
+    <EditText
+        android:id="@+id/et_vista_lat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_vista_lon"
+        android:layout_toLeftOf="@+id/btn_vista_serach"
+        android:hint="@string/vista_type_lat"/>
+
+    <Button
+        android:id="@+id/btn_vista_serach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/et_vista_lon"
+        android:layout_alignBottom="@+id/et_vista_lat"
+        android:layout_alignParentRight="true"
+        android:text="@string/serach"
+        />
+
+    <WebView
+        android:id="@+id/wv_vista_pano"
+        android:layout_below="@+id/et_vista_lat"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>
