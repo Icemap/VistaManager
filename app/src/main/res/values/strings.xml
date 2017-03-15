@@ -15,9 +15,10 @@
     <string name="vista_update">全景题目、描述更新</string>
     <string name="delete">删除</string>
     <string name="vista_type_content">请输入全景描述</string>
-    <string name="vista_type_url">请输入全景URL</string>
+    <string name="vista_type_url">请输入全景要显示的问题</string>
     <string name="vista_type_lat">请输入全景纬度</string>
     <string name="vista_type_lon">请输入全景经度</string>
     <string name="serach">预览</string>
+    <string name="map">地图</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.wqz.vistamanager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
@@ -24,7 +25,7 @@ import okhttp3.Call;
 public class AddVistaActivity extends BaseActivity
 {
     TitleBar titleBar;
-    Button btnSerach;
+    Button btnSerach,btnStartMap;
     WebView wvPano;
     EditText etContent,etUrl,etLat,etLon;
 
@@ -35,6 +36,7 @@ public class AddVistaActivity extends BaseActivity
         titleBar = (TitleBar)findViewById(R.id.add_vista_title_bar);
         setTitleBarParm();
         btnSerach = (Button)findViewById(R.id.btn_add_vista_serach);
+        btnStartMap = (Button)findViewById(R.id.btn_add_vista_select);
         wvPano = (WebView)findViewById(R.id.wv_pano);
         initWebView();
         etContent = (EditText)findViewById(R.id.et_add_vista_content);
@@ -47,6 +49,7 @@ public class AddVistaActivity extends BaseActivity
     protected void onSetListener()
     {
         btnSerach.setOnClickListener(onClickListener);
+        btnStartMap.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -60,11 +63,17 @@ public class AddVistaActivity extends BaseActivity
         @Override
         public void onClick(View view)
         {
-            String sUrl = etUrl.getText().toString();
-            if(!sUrl.startsWith("http://"))
-                etUrl.setText("http://" + sUrl);
-
-            wvPano.loadUrl(etUrl.getText().toString());
+            switch (view.getId())
+            {
+                case R.id.btn_add_vista_serach:
+                    wvPano.loadUrl(UrlUtils.HTML_VISTA + "?lon=" + etLon.getText().toString()
+                            + "&lat=" + etLat.getText().toString());
+                    break;
+                case R.id.btn_add_vista_select:
+                    startActivityForResult(new Intent(
+                            AddVistaActivity.this,LonLatSelectActivity.class), 0);
+                    break;
+            }
         }
     };
 
@@ -96,7 +105,7 @@ public class AddVistaActivity extends BaseActivity
         titleBar.setHeight(ScreenUtils.getScreenHeight(AddVistaActivity.this) / 12);
 
         titleBar.setActionTextColor(Color.WHITE);
-        titleBar.addAction(new TitleBar.TextAction("确认")
+        titleBar.addAction(new TitleBar.TextAction("确认添加")
         {
             @Override
             public void performAction(View view)
@@ -133,5 +142,14 @@ public class AddVistaActivity extends BaseActivity
                         });
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        String sLat = data.getStringExtra("lat");
+        String sLon = data.getStringExtra("lon");
+        etLat.setText(sLat);
+        etLon.setText(sLon);
     }
 }

@@ -31,20 +31,18 @@
 
 
 
-    <!--<EditText-->
-        <!--android:id="@+id/et_vista_url"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignBottom="@+id/btn_vista_serach"-->
-        <!--android:layout_toLeftOf="@+id/btn_vista_serach"-->
-        <!--android:layout_below="@+id/et_vista_content"-->
-        <!--android:hint="@string/vista_type_url"/>-->
+    <EditText
+        android:id="@+id/et_vista_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_vista_content"
+        android:hint="@string/vista_type_url"/>
 
     <EditText
         android:id="@+id/et_vista_lon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_vista_content"
+        android:layout_below="@+id/et_vista_url"
         android:layout_toLeftOf="@+id/btn_vista_serach"
         android:hint="@string/vista_type_lon"/>
 
@@ -62,8 +60,18 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/et_vista_lon"
         android:layout_alignBottom="@+id/et_vista_lat"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/btn_vista_map"
         android:text="@string/serach"
+        />
+
+    <Button
+        android:id="@+id/btn_vista_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/et_vista_lon"
+        android:layout_alignBottom="@+id/et_vista_lat"
+        android:layout_alignParentRight="true"
+        android:text="@string/map"
         />
 
     <WebView

@@ -1,5 +1,6 @@
 package com.wqz.vistamanager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
@@ -26,9 +27,9 @@ import okhttp3.Call;
 public class VistaActivity extends BaseActivity
 {
     TitleBar titleBar;
-    Button btnSerach;
+    Button btnSerach,btnMap;
     WebView wvPano;
-    EditText etContent,etLat,etLon;
+    EditText etUrl,etContent,etLat,etLon;
     TextView tvId;
     Vista curr;
 
@@ -39,6 +40,7 @@ public class VistaActivity extends BaseActivity
 
         curr = getBaseApplication().getVista();
         etContent.setText(curr.getContent());
+        etUrl.setText(curr.getUrl());
         etLat.setText(curr.getLat().toString());
         etLon.setText(curr.getLon().toString());
         tvId.setText("全景ID号为："+curr.getId());
@@ -52,9 +54,11 @@ public class VistaActivity extends BaseActivity
         titleBar = (TitleBar)findViewById(R.id.vista_title_bar);
         setTitleBarParm();
         btnSerach = (Button)findViewById(R.id.btn_vista_serach);
+        btnMap = (Button)findViewById(R.id.btn_vista_map);
         wvPano = (WebView)findViewById(R.id.wv_vista_pano);
         initWebView();
         etContent = (EditText)findViewById(R.id.et_vista_content);
+        etUrl = (EditText)findViewById(R.id.et_vista_url);
         etLat = (EditText)findViewById(R.id.et_vista_lat);
         etLon = (EditText)findViewById(R.id.et_vista_lon);
         tvId = (TextView)findViewById(R.id.tv_vista_id);
@@ -64,6 +68,7 @@ public class VistaActivity extends BaseActivity
     protected void onSetListener()
     {
         btnSerach.setOnClickListener(onClickListener);
+        btnMap.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -77,10 +82,19 @@ public class VistaActivity extends BaseActivity
         @Override
         public void onClick(View view)
         {
-            String sUrl = UrlUtils.HTML_VISTA + "?lat=" +
-                    etLat.getText().toString() + "&lon=" + etLon.getText().toString();
+            switch (view.getId())
+            {
+                case R.id.btn_vista_serach:
+                    String sUrl = UrlUtils.HTML_VISTA + "?lat=" +
+                            etLat.getText().toString() + "&lon=" + etLon.getText().toString();
 
-            wvPano.loadUrl(sUrl);
+                    wvPano.loadUrl(sUrl);
+                    break;
+                case R.id.btn_vista_map:
+                    startActivityForResult(new Intent(
+                            VistaActivity.this,LonLatSelectActivity.class), 0);
+                    break;
+            }
         }
     };
 
@@ -112,7 +126,7 @@ public class VistaActivity extends BaseActivity
         titleBar.setHeight(ScreenUtils.getScreenHeight(VistaActivity.this) / 12);
 
         titleBar.setActionTextColor(Color.WHITE);
-        titleBar.addAction(new TitleBar.TextAction("确认")
+        titleBar.addAction(new TitleBar.TextAction("更新")
         {
             @Override
             public void performAction(View view)
@@ -127,7 +141,7 @@ public class VistaActivity extends BaseActivity
                 OkHttpUtils.post().url(UrlUtils.VISTA_UPDATE)//
                         .addParams("id",curr.getId().toString())
                         .addParams("content",etContent.getText().toString())
-                        .addParams("url","")
+                        .addParams("url",etUrl.getText().toString())
                         .addParams("lon",etLon.getText().toString())
                         .addParams("lat",etLat.getText().toString())
                         .addParams("projId",getBaseApplication().getProj().getId().toString())
@@ -150,5 +164,41 @@ public class VistaActivity extends BaseActivity
                         });
             }
         });
+
+        titleBar.addAction(new TitleBar.TextAction("删除")
+        {
+            @Override
+            public void performAction(View view)
+            {
+                OkHttpUtils.post().url(UrlUtils.VISTA_DELETE)//
+                        .addParams("id",curr.getId().toString())
+                        .build()//
+                        .execute(new StringCallback()
+                        {
+                            @Override
+                            public void onError(Call call, Exception e, int id)
+                            {
+                                Toast.makeText(VistaActivity.this, "网络错误",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id)
+                            {
+                                Boolean rlt = new Gson().fromJson(response,Boolean.class);
+                                Toast.makeText(VistaActivity.this, rlt ? "删除成功" : "删除失败",Toast.LENGTH_SHORT).show();
+                                VistaActivity.this.finish();
+                            }
+                        });
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        String sLat = data.getStringExtra("lat");
+        String sLon = data.getStringExtra("lon");
+        etLat.setText(sLat);
+        etLon.setText(sLon);
     }
 }
